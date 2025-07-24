@@ -1,0 +1,63 @@
+<form [formGroup]="userRegisterForm" (ngSubmit)="onSubmit()">
+
+    <div class="mb-3">
+        <label class="form-label">Name</label>
+        <input formControlName="name" name="name" type="text" class="form-control" aria-describedby="emailHelp">
+    </div>
+
+    @if (getName?.touched && getName?.invalid) {
+        <div class="my-3">
+            <span class="text-danger alert alert-danger">Name is required</span>
+        </div>
+    }
+
+    <!-- <h1>{{userRegisterForm.get('name')?.errors | json}}</h1> -->
+    <!-- <h1>{{userRegisterForm.get('email')?.errors | json}}</h1> -->
+
+    <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input formControlName="email" name="email" type="email" class="form-control" aria-describedby="emailHelp">
+    </div>
+
+    @if (getEmail?.touched && getEmail?.invalid) {
+        <div class="my-3">
+            @if (getEmail?.errors?.['required']) {
+                <span class="text-danger alert alert-danger">Email Is Required</span>
+            }@else if (getEmail?.errors?.['pattern']) {
+                <span class="text-danger alert alert-danger">Email Must Match Out Pattern ........</span>
+            }
+        </div>
+    }
+
+
+
+    <div class="mb-3">
+        <label class="form-label">Password</label>
+        <input formControlName="password" name="password" type="text" class="form-control" aria-describedby="emailHelp">
+    </div>
+
+
+    <div formGroupName="address">
+        <div class="mb-3">
+            <label class="form-label">City</label>
+            <input formControlName="city" name="city" type="text" class="form-control" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">StNumber</label>
+            <input formControlName="stNumber" name="stNumber" type="text" class="form-control"
+                aria-describedby="emailHelp">
+        </div>
+    </div>
+
+        <div class="mb-3">
+            <label class="form-label">Phones</label>
+            @for (phone of getPhones.controls; track $index) {
+                <input [formControlName]="$index" name="phone" type="number" class="form-control" aria-describedby="emailHelp">
+            }
+            <button class="btn btn-outline-success" (click)="addNewPhone()"> + </button>
+        </div>
+
+        <!-- <h1>{{userRegisterForm.value | json}}</h1> -->
+
+    <button type="submit" class="btn btn-primary" [disabled]="userRegisterForm.invalid">Submit</button>
+</form>

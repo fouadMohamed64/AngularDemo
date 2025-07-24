@@ -1,0 +1,17 @@
+
+<div class="mb-3">
+    <label for="" class="form-label">Porducts Categories</label>
+    <select class="form-select form-select-lg" [(ngModel)]="selectedId">
+        <option *ngFor="let cat of productsCategories" [value]="cat.catId">{{cat.name}}</option>
+    </select>
+</div>
+
+<div class="bg-danger">
+    <app-products [selectedCategoreId]="selectedId" (onTotoalPriceChanged)="viewTotalPrice($event)"></app-products>
+</div>
+
+<h1>Total Order Price Is {{totalOrderPrice}}</h1>
+
+
+<!-- <input type="text" placeholder="Enter userName" #userName (keydown)="fun(userName.value)" > -->
+<input type="text" value="Fouad" placeholder="Enter userName" #userName  >

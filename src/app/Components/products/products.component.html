@@ -1,0 +1,92 @@
+<!-- <h1>Total Price Is {{totoalPrice}}</h1> -->
+
+<!-- <div class="mb-3">
+    <label for="" class="form-label">Porducts Categories</label>
+    <select class="form-select form-select-lg" [(ngModel)]="selectedId" (change)="filterProducts()">
+        <option *ngFor="let cat of productsCategories" [value]="cat.catId">{{cat.name}}</option>
+    </select>
+</div> -->
+
+<!-- <button (click)="clickBTN()">click</button> -->
+<!-- {{selectedId}} -->
+
+<!--  Data Binding -->
+
+<div class="container px-4">
+    <div class="row">
+        <!-- <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4" *ngFor="let prd of products; let i = index; let l=last; let c=count; trackBy: trackFun"> -->
+        @for (prd of filteredProducts; track prd.id; let i =$index) {
+
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+            <!-- <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4" [hidden]="prd.categoryId != selectedId"> -->
+            <!-- <div class="card h-100" *ngIf="selectedId == prd.categoryId"> -->
+            <div class="card h-100">
+                <img [src]="prd.imgUrl" class="card-img-top img-fluid" alt="Product image" appImageStyling="orange"
+                    defaultColor="green">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title" [style.text-decoration]="'underline'">{{i+1}}Product Name: {{ prd.name |
+                        separator}}</h5>
+                    <p class="card-text" [style]="navStyle">Product Price: {{ prd.price | currency:'USA':'code'}}</p>
+                    <!-- <p class="card-text" [ngStyle]="{'color': prd.quantity==0 ? 'red' : 'green' }">Product quantity: {{
+                        prd.quantity }}</p> -->
+
+                    <!-- <p class="card-text" [class.bg-danger]="prd.quantity==1">Product Quantity: {{ prd.quantity }}</p> -->
+
+                    <!-- <p class="card-text" [ngSwitch]="prd.quantity">
+                        <span *ngSwitchCase="0">Out Of Stock</span>
+                        <span *ngSwitchCase="1">The Last Item</span>
+                        <span *ngSwitchCase="2">Last 2 Items</span>
+                        <span *ngSwitchDefault>{{prd.quantity}}</span> 
+                    </p> -->
+                    <!-- @switch (prd.quantity) {
+                        @case (0) {
+                            <span>Out Of Stock</span>
+                        }
+                        @case (1) {
+                            <span>Last Item</span>
+                        }
+                        @default {
+                            <span>{{prd.quantity}}</span>
+                        }
+                    }
+ -->
+
+                    @if (prd.quantity==0) {
+                    <span>Out Of Stock</span>
+                    }@else {
+                    <span>{{prd.quantity}}</span>
+                    }
+                    <!-- <span *ngIf="prd.quantity==0 ; else elseBlock">Out Of Stock</span>
+                    <span #theOtherBlock>{{ prd.quantity }}</span>
+
+                    <ng-template #elseBlock>
+                        {{prd.quantity}}
+                    </ng-template> -->
+
+
+
+
+
+                    <!-- ng-template / ng-container -->
+
+                    <input type="number" #inp class="form-control mb-2" placeholder="Enter quantity">
+                    <!-- <button class="btn  mt-auto" [ngClass]="['bg-danger', 'text-primary']"  (click)="buy(prd.price, inp.value)">Buy</button> -->
+                    <button class="btn btn-success mt-auto" (click)="buy(prd.price, inp.value)">Buy</button>
+                    <!-- {{c}} -->
+
+                    <!-- <button type="button" class="btn btn-outline-primary" (click)="showDetails(prd.id)">Show Details</button> -->
+                    <button type="button" class="btn btn-outline-primary" [routerLink]="['/productDetails' , prd.id]">Show Details</button>
+                </div>
+            </div>
+
+        </div>
+
+        }
+        @empty {
+        <h1>ther is no products </h1>
+        }
+    </div>
+
+</div>
+
+<h1>{{dateNow | date:'short'}}</h1>

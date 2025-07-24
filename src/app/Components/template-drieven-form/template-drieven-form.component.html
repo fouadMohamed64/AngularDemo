@@ -1,0 +1,36 @@
+
+
+<form (ngSubmit)="onSubmit(myForm)" #myForm="ngForm" >
+
+  <div class="mb-3">
+    <label class="form-label">Name</label>
+    <input [(ngModel)]="product.name" required pattern="^[a-zA-Z]{4,20}$" #nameInp="ngModel" name="name" type="text" class="form-control"  aria-describedby="emailHelp">
+  </div>
+
+  <!-- <h1>{{nameInp.errors | json}}</h1> -->
+
+  @if (nameInp.touched) {
+    <div class="my-3">
+        @if (nameInp.errors?.['required']) {
+            <span class="alert alert-danger text-danger">Name Is Requied</span>
+        }
+        @if (nameInp.errors?.['pattern']) {
+            <span class="alert alert-danger text-danger">Name Must Be At Least 4 Chars</span>
+        }
+    </div>
+  }
+
+  <div class="mb-3">
+    <label class="form-label">Price</label>
+    <input [(ngModel)]="product.price" name="price" type="text" class="form-control"  aria-describedby="emailHelp">
+  </div>
+  
+  <div class="mb-3">
+    <label class="form-label">Quantity</label>
+    <input [(ngModel)]="product.quantity" name="quantity" type="text" class="form-control"  aria-describedby="emailHelp">
+  </div>
+
+
+
+  <button type="submit" class="btn btn-primary" [disabled]="myForm.invalid">Create</button>
+</form>
